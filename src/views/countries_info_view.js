@@ -12,12 +12,13 @@ CountriesInfoView.prototype.bindEvents = function() {
 
 CountriesInfoView.prototype.render = function(countryData) {
   this.clear(this.container);
-  this.addTextElement('h2', countryData.name);
+  this.addTextElement('h2', countryData.name, this.container);
   this.addFlagImage(countryData);
-  this.addTextElement('h3', "Region:");
-  this.addTextElement('p',countryData.region)
-  this.addTextElement('h3', 'Languages:')
-  const list = this.addUnorderedListElement();
+  const div = this.addDiv();
+  this.addTextElement('h3', "Region:", div);
+  this.addTextElement('p',countryData.region, div);
+  this.addTextElement('h3', 'Languages:', div);
+  const list = this.addUnorderedListElement(div);
   this.addListItemsToList(list, countryData.languages);
 };
 
@@ -25,10 +26,18 @@ CountriesInfoView.prototype.clear = function(element) {
   element.innerHTML = '';
 };
 
-CountriesInfoView.prototype.addTextElement = function(element, elementText) {
+CountriesInfoView.prototype.addDiv = function() {
+  const div = document.createElement('div');
+  div.id = 'countries-text';
+  this.container.appendChild(div);
+  return div;
+}
+
+CountriesInfoView.prototype.addTextElement = function(element, elementText, parentElement) {
   const newElement = document.createElement(element);
   newElement.textContent = elementText;
-  this.container.appendChild(newElement);
+  parentElement.appendChild(newElement);
+  console.log(`adding ${element} to ${parentElement.id}`);
 };
 
 CountriesInfoView.prototype.addFlagImage = function (countryData) {
@@ -39,9 +48,9 @@ CountriesInfoView.prototype.addFlagImage = function (countryData) {
   this.container.appendChild(image);
 };
 
-CountriesInfoView.prototype.addUnorderedListElement = function () {
+CountriesInfoView.prototype.addUnorderedListElement = function (div) {
   const newUnorderedList = document.createElement('ul');
-  this.container.appendChild(newUnorderedList);
+  div.appendChild(newUnorderedList);
   return newUnorderedList;
 };
 
