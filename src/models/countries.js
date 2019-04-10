@@ -6,7 +6,7 @@ const Countries = function () {
 };
 
 Countries.prototype.getData = function () {
-  const requestHelper = new RequestHelper('https://restcountries.eu/rest/v2/all');
+  const requestHelper = new RequestHelper('https://restcountries.eu/rest/v2/all?fields=name;region;flag;languages');
   requestHelper.get( (data) => {
     this.data = data;
     PubSub.publish('Countries:data-ready', this.data);
