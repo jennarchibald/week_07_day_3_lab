@@ -9,6 +9,11 @@ CountriesSelectView.prototype.bindEvents = function () {
     console.log(evt.detail);
     this.populate(evt.detail);
   });
+
+  this.select.addEventListener('change', (evt) => {
+    PubSub.publish('CountriesSelectView:country-chosen', evt.target.value);
+  });
+
 };
 
 CountriesSelectView.prototype.populate = function (data) {

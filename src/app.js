@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const countries = new Countries();
   countries.getData();
+  countries.bindEvents();
 
 
 

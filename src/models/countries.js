@@ -13,5 +13,17 @@ Countries.prototype.getData = function () {
   });
 };
 
+Countries.prototype.bindEvents = function () {
+  PubSub.subscribe('CountriesSelectView:country-chosen', (evt) => {
+    this.publishCountryData(evt.detail);
+  });
+};
+
+
+Countries.prototype.publishCountryData = function (index) {
+  const selectedCountry = this.data[index];
+  PubSub.publish('Countries:selected-country-data', selectedCountry);
+};
+
 
 module.exports = Countries;
